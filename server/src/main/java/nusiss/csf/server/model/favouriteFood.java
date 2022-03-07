@@ -7,9 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
-@Document(collection = "favouriteFood")
 public class favouriteFood {
-    @Id
     private int userId;
     private String stallName;
     private String uuid;

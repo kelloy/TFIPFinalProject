@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import nusiss.csf.server.Repository.MongoDbRepo;
 import nusiss.csf.server.Repository.SQLRepo;
 import nusiss.csf.server.Services.EmailService;
 import nusiss.csf.server.Services.handlerService;
@@ -30,6 +31,9 @@ public class feedbackController {
     private SQLRepo repo;
 
     @Autowired
+    private MongoDbRepo mongodb;
+
+    @Autowired
     private EmailService email;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +44,8 @@ public class feedbackController {
         fb = handler.buildfb(json);
         System.out.println(fb);
         repo.saveFeedBack(fb);
+        System.out.println("checking");
+        mongodb.save(fb);
         JsonObject response = fb.toJson(fb); 
         email.sendEmail(fb.getEmail(),"Your Feedback",handler.emailString(fb));
         return ResponseEntity.status(HttpStatus.OK).body(response.toString());

@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import nusiss.csf.server.constant.CONSTANTS;
+
 @Service
 public class EmailService {
     @Value("${spring.mail.host}")
@@ -15,16 +17,17 @@ public class EmailService {
     @Value("${spring.mail.port}")
     private int port;
     
-    @Value("${spring.mail.username}")
     private String username;
 
-    @Value("${spring.mail.password}")
     private String password;
 
     @Autowired 
     private JavaMailSenderImpl emailSender;
 
     public void sendEmail(String to, String subject, String text){
+
+        password = System.getenv(CONSTANTS.EMAIL_PASSWORD);
+        username = System.getenv(CONSTANTS.EMAIL_USERNAME);
 
         emailSender.setHost(host);
         emailSender.setPort(port);

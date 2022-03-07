@@ -1,10 +1,16 @@
 package nusiss.csf.server.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue;
 
+
+@Document(collection = "feedback")
 public class feedback {
+    @Id
     private String username;
     private String email;
     private int contactNumber;
